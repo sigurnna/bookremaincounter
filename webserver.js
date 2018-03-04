@@ -6,9 +6,9 @@ let cheerio = require('cheerio');
 let app = express();
 
 
-// 서점 검색
-// 모바일 위치 기반 + isbn에 해당하는 책의 재고를 보여줄 수 있어야 함.
-app.get('/bookstore/:isbn&:lat&:lon', (req, res) => {
+// 서점검색.
+// isbn 에 해당하는 책의 재고가 남아있는 서점에 대한 정보를 돌려줌.
+app.get('/bookstore/instock/isbn/:isbn', (req, res) => {
 
 	// 서울 교보문고 위치
 	// 37.514583, 127.100950
@@ -65,6 +65,7 @@ app.get('/bookstore/:isbn&:lat&:lon', (req, res) => {
 		for (i=0; i<storeNames.length; i++) {
 			let jObject = new Object();
 			jObject.storename = storeNames[i];
+			// 가게 위치도 추가해줘야 함.
 			jObject.remainbook = remainBooks[i];
 
 			responseJSON.response.push(jObject);
